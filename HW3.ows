@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme description="" title="" version="2.0">
+	<nodes>
+		<node id="0" name="Image Embedding" position="(297.0, 185.0)" project_name="Orange3-ImageAnalytics" qualified_name="orangecontrib.imageanalytics.widgets.owimageembedding.OWImageEmbedding" title="Image Embedding" version="" />
+		<node id="1" name="Import Images" position="(104.0, 176.0)" project_name="Orange3-ImageAnalytics" qualified_name="orangecontrib.imageanalytics.widgets.owimageimport.OWImportImages" title="Import Images" version="" />
+	</nodes>
+	<links>
+		<link enabled="true" id="0" sink_channel="Images" sink_node_id="0" source_channel="Data" source_node_id="1" />
+	</links>
+	<annotations />
+	<thumbnail />
+	<node_properties>
+		<properties format="literal" node_id="0">{'_auto_apply': True, 'cb_embedder_current_id': 0, 'cb_image_attr_current_id': 0, 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x03:\x00\x00\x01\xa6\x00\x00\x04E\x00\x00\x02r\x00\x00\x03:\x00\x00\x01\xa6\x00\x00\x04E\x00\x00\x02r\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03:\x00\x00\x01\xa6\x00\x00\x04E\x00\x00\x02r', '__version__': 1}</properties>
+		<properties format="pickle" node_id="1">gASVjQEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjAxyZWNlbnRfcGF0aHOUXZSMHm9y
+YW5nZXdpZGdldC51dGlscy5maWxlZGlhbG9nc5SMClJlY2VudFBhdGiUk5QpgZR9lCiMB2Fic3Bh
+dGiUjF9DOi9Vc2Vycy9NRS9PbmVEcml2ZS9Eb2N1bWVudHMvU2Nob29sL1BTVS9GYWxsMjAyMC9F
+Q0U1NzgvQXNzaWdubWVudHMvQXNzaWdubWVudDMvVHJhaW5HZXN0dXJlc5SMBnByZWZpeJSMB2Jh
+c2VkaXKUjAdyZWxwYXRolIwNVHJhaW5HZXN0dXJlc5SMBXRpdGxllIwAlIwFc2hlZXSUaBCMC2Zp
+bGVfZm9ybWF0lE51YmGME3NhdmVkV2lkZ2V0R2VvbWV0cnmUQ0IB2dDLAAMAAAAAAyMAAAGtAAAE
+XQAAAk4AAAMkAAABzAAABFwAAAJNAAAAAAAAAAAHgAAAAyQAAAHMAAAEXAAAAk2UjAtfX3ZlcnNp
+b25fX5RLAXUu
+</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>
