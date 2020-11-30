@@ -7,9 +7,12 @@ import cv2
 import imutils
 import numpy as np
 from sklearn.metrics import pairwise
-from orangecontrib.imageanalytics.widgets.owimageembedding import ImageEmbedder
-from orangecontrib.imageanalytics.widgets.owimageimport import ImportImages
-
+from sklearn import linear_model
+import os
+import matplotlib
+import Orange
+from orangecontrib.imageanalytics.image_embedder import ImageEmbedder
+from orangecontrib.imageanalytics.import_images import ImportImages
 
 # global variables
 bg = None
@@ -112,6 +115,7 @@ def count(thresholded, segmented):
 # MAIN FUNCTION
 #-----------------
 if __name__ == "__main__":
+
     # initialize accumulated weight
     accumWeight = 0.5
 
@@ -127,15 +131,25 @@ if __name__ == "__main__":
     # calibration indicator
     calibrated = False
 
-    # Import Images
-    myimgimp = ImportImages(report_progress=print) #Initialize
-    image_data_table, myerr = myimgimp("C:\\TrainGestures")
+    # Construct Training image path
+    path = os.path.dirname(os.path.realpath(__file__))
+    imagefolder = "gestures"
+    path = (path + "\\" + imagefolder)
+    print(path)
 
-    print(image_data_table)
+    imimp = ImportImages(report_progress=print)
+    imdata, err = imimp(path)
 
-    # Embed Images
-    myembed = ImageEmbedder()
-    emmbeded_data_table = myembed(image_data_table, 3)
+    print(imdata.domain)
+    print(imdata)
+
+    tablecol = imdata.columns
+
+    print(tablecol.image)
+
+
+    imemb = ImageEmbedder()
+    imembdata = imemb(imdata, col="image")
 
 
     # keep looping, until interrupted
@@ -183,10 +197,12 @@ if __name__ == "__main__":
                 # draw the segmented region and display the frame
                 cv2.drawContours(clone, [segmented + (right, top)], -1, (0, 0, 255))
 
+
+
                 # count the number of fingers
         ## #       fingers = count(thresholded, segmented)
 
-                cv2.putText(clone, str(classifier), (70, 45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
+                cv2.putText(clone, str("NONE"), (70, 45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
                 
                 # show the thresholded image
                 cv2.imshow("Thesholded", thresholded)
@@ -207,6 +223,6 @@ if __name__ == "__main__":
         if keypress == ord("q"):
             break
 
-# free up memory
-camera.release()
-cv2.destroyAllWindows()
+    # free up memory
+    camera.release()
+    cv2.destroyAllWindows()

@@ -139,6 +139,6 @@ if __name__ == "__main__":
                 else:
                     print("Save Failure")
 
-# free up memory
-camera.release()
-cv2.destroyAllWindows()
+    # free up memory
+    camera.release()
+    cv2.destroyAllWindows()
