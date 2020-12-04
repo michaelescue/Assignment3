@@ -3,19 +3,37 @@
 #------------------------------------------------------------
 
 # organize imports
+from cgi import test
+from typing import NoReturn
+from Orange.preprocess import discretize
+from Orange.statistics.distribution import Discrete
+
 import cv2
 import imutils
 import numpy as np
+from Orange.data import domain
+from orangewidget.gui import label
 from sklearn.metrics import pairwise
 from sklearn import linear_model
 import os
-import matplotlib
 import Orange
 from orangecontrib.imageanalytics.image_embedder import ImageEmbedder
 from orangecontrib.imageanalytics.import_images import ImportImages
+from Orange import classification
+from Orange import modelling
+from Orange import evaluation
+from Orange import preprocess
+from Orange.evaluation import testing
 
-# global variables
+# global variables.widgets.evaluate
 bg = None
+
+#counter
+def foo():
+    foo.counter += 1
+    print ("Counter is %d" % foo.counter)
+    return foo.counter
+foo.counter = 0
 
 #--------------------------------------------------
 # To find the running average over the background
@@ -33,13 +51,13 @@ def run_avg(image, accumWeight):
 #---------------------------------------------
 # To segment the region of hand in the image
 #---------------------------------------------
-def segment(image, threshold=24):
+def segment(image, threshold=50, thresholdtype=cv2.THRESH_BINARY):
     global bg
     # find the absolute difference between background and current frame
     diff = cv2.absdiff(bg.astype("uint8"), image)
 
     # threshold the diff image so that we get the foreground
-    thresholded = cv2.threshold(diff, threshold, 128, cv2.THRESH_BINARY)[1]
+    thresholded = cv2.threshold(diff, threshold, 256, thresholdtype)[1]
 
     # get the contours in the thresholded image
     (cnts, _) = cv2.findContours(thresholded.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -123,7 +141,7 @@ if __name__ == "__main__":
     camera = cv2.VideoCapture(0)
 
     # region of interest (ROI) coordinates
-    top, right, bottom, left = 10, 350, 225, 590
+    top, right, bottom, left = 10, 450, 225, 690
 
     # initialize num of frames
     num_frames = 0
@@ -132,25 +150,71 @@ if __name__ == "__main__":
     calibrated = False
 
     # Construct Training image path
-    path = os.path.dirname(os.path.realpath(__file__))
+    basepath = os.path.dirname(os.path.realpath(__file__))
     imagefolder = "gestures"
-    path = (path + "\\" + imagefolder)
+    testfolder = "test"
+    path = (basepath + "\\" + imagefolder)
+    testpath = (basepath + "\\" + testfolder)
     print(path)
 
-    imimp = ImportImages(report_progress=print)
+    # Test image path
+    print(testpath)
+
+    # Initialize Image Import
+    imimp = ImportImages()
+
+    # Import Training images
     imdata, err = imimp(path)
 
-    print(imdata.domain)
-    print(imdata)
+    # Import Test image
+    # testdata, err = imimp(testpath)
 
-    tablecol = imdata.columns
+    # Check images properly imported.
+    # print(imdata.domain)
+    # print(imdata)
+    # print(type(imdata))
+    # print(testdata)
 
-    print(tablecol.image)
+    # Initialize Image Embedder
+    imemb = ImageEmbedder(model="squeezenet")
+
+    # Embed Training images
+    imembdata, skippedim, numskippedim = imemb(imdata, col="image")
+
+    # Embed test image
+    # testemb, skippedim, numskippedim = imemb(testdata, col="image")
+
+    # print(imembdata)
+    # print(skippedim)
+    # print(numskippedim)
+
+    # Initialize learner
+    # learner = classification.naive_bayes.NaiveBayesLearner()
+    # learner = classification.TreeLearner
+    learner = classification.KNNLearner()
 
 
-    imemb = ImageEmbedder()
-    imembdata = imemb(imdata, col="image")
+    # Train learner for model
+    # lmodel = learner(imembdata)
+    lmodel = learner(imembdata)
+    
+    # Set object for getting class values from data based on prediction
+    classval = imembdata.domain.class_var.values
 
+    # Make prediction using learner
+    # prediction = lmodel(testemb)
+
+    # Display prediction
+    # print(classval[int(prediction)])
+
+    # Display tree
+    # printedtree = lmodel.print_tree()
+    # for i in printedtree.split('\n'):
+    #     print(i)
+
+    # Set Thresholding type flag
+    threshtype = cv2.THRESH_BINARY
+    thresh = 30
 
     # keep looping, until interrupted
     while(True):
@@ -165,6 +229,7 @@ if __name__ == "__main__":
 
         # clone the frame
         clone = frame.copy()
+        clone2 = clone.copy()
 
         # get the height and width of the frame
         (height, width) = frame.shape[:2]
@@ -174,7 +239,7 @@ if __name__ == "__main__":
 
         # convert the roi to grayscale and blur it
         gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-        gray = cv2.GaussianBlur(gray, (7, 7), 0)
+        gray = cv2.GaussianBlur(gray, (7, 7), 1)
 
         # to get the background, keep looking till a threshold is reached
         # so that our weighted average model gets calibrated
@@ -186,7 +251,7 @@ if __name__ == "__main__":
                 print("[STATUS] calibration successfull...")
         else:
             # segment the hand region
-            hand = segment(gray)
+            hand = segment(image=gray, threshold=thresh, thresholdtype=threshtype)
 
             # check whether hand region is segmented
             if hand is not None:
@@ -194,15 +259,36 @@ if __name__ == "__main__":
                 # segmented region
                 (thresholded, segmented) = hand
 
+                #fill Contours
+                cv2.fillPoly(clone, [segmented + (right, top)], (255, 255, 255))
+                cv2.fillPoly(thresholded, [segmented + (right, top)], (255, 255, 255))
+
                 # draw the segmented region and display the frame
                 cv2.drawContours(clone, [segmented + (right, top)], -1, (0, 0, 255))
+                cv2.drawContours(thresholded, [segmented + (right, top)], -1, (0, 0, 255))
 
+                # save segmented frame to testpath
+                cv2.imwrite(testpath + "\\" + "test.jpg", thresholded)
 
+                #testing timing qualitatively
+                # print("imwrite done")
 
-                # count the number of fingers
-        ## #       fingers = count(thresholded, segmented)
+                # Import Test image
+                testdata, err = imimp(testpath)
 
-                cv2.putText(clone, str("NONE"), (70, 45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
+                #testing timing qualitatively
+                #print("Import done")
+
+                # Embed test image
+                testemb, skippedim, numskippedim = imemb(testdata, col="image")
+
+                #testing timing qualitatively
+                # print("Embed done")
+
+                # Make prediction using learner
+                prediction = lmodel(testemb)
+                
+                cv2.putText(clone, str(classval[int(prediction)]), (70, 45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
                 
                 # show the thresholded image
                 cv2.imshow("Thesholded", thresholded)
@@ -222,6 +308,36 @@ if __name__ == "__main__":
         # if the user pressed "q", then stop looping
         if keypress == ord("q"):
             break
+        elif(keypress == ord("r")):
+            num_frames = 0
+        elif(keypress == ord("i")):
+            if(threshtype == cv2.THRESH_BINARY):
+                threshtype == cv2.THRESH_BINARY_INV
+            else:
+                threshtype = cv2.THRESH_BINARY
+        elif(keypress == ord("u")):
+            if(thresh < 256):
+                thresh += 1
+                print(thresh)
+            else:
+                thresh = thresh
+                print(thresh)
+        elif(keypress == ord("d")):
+            if(thresh >0):
+                thresh -= 1
+                print(thresh)
+            else:
+                thresh = thresh
+                print(thresh)
+        else:
+            if keypress == ord("c"):
+                #cv2.imshow("gray", thresholded)
+                filepath = path + "\\" + "recorded images"
+                status = cv2.imwrite(filepath + "gestureframe%d.jpg" % foo(), thresholded)
+                if status == True:
+                    print("entered img save")
+                else:
+                    print("Save Failure")
 
     # free up memory
     camera.release()

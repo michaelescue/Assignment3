@@ -1,42 +1,291 @@
 <?xml version='1.0' encoding='utf-8'?>
-<scheme description="" title="" version="2.0">
+<scheme version="2.0" title="" description="">
 	<nodes>
-		<node id="0" name="Import Images" position="(189.0, 213.0)" project_name="Orange3-ImageAnalytics" qualified_name="orangecontrib.imageanalytics.widgets.owimageimport.OWImportImages" title="Import Images" version="" />
-		<node id="1" name="Data Table" position="(307.0, 97.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owtable.OWDataTable" title="Data Table" version="" />
-		<node id="2" name="Python Script" position="(485.0, 523.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owpythonscript.OWPythonScript" title="Python Script" version="" />
-		<node id="3" name="Image Embedding" position="(286.0, 307.0)" project_name="Orange3-ImageAnalytics" qualified_name="orangecontrib.imageanalytics.widgets.owimageembedding.OWImageEmbedding" title="Image Embedding" version="" />
-		<node id="4" name="Logistic Regression" position="(309.0, 530.0)" project_name="Orange3" qualified_name="Orange.widgets.model.owlogisticregression.OWLogisticRegression" title="Logistic Regression" version="" />
-		<node id="5" name="Confusion Matrix" position="(530.0, 370.0)" project_name="Orange3" qualified_name="Orange.widgets.evaluate.owconfusionmatrix.OWConfusionMatrix" title="Confusion Matrix" version="" />
-		<node id="6" name="Predictions" position="(487.0, 648.0)" project_name="Orange3" qualified_name="Orange.widgets.evaluate.owpredictions.OWPredictions" title="Predictions" version="" />
+		<node id="0" name="Import Images" qualified_name="orangecontrib.imageanalytics.widgets.owimageimport.OWImportImages" project_name="Orange3-ImageAnalytics" version="" title="Import Images" position="(300, 300)" />
+		<node id="1" name="Image Embedding" qualified_name="orangecontrib.imageanalytics.widgets.owimageembedding.OWImageEmbedding" project_name="Orange3-ImageAnalytics" version="" title="Image Embedding" position="(450, 300)" />
+		<node id="2" name="Tree" qualified_name="Orange.widgets.model.owtree.OWTreeLearner" project_name="Orange3" version="" title="Tree" position="(600, 600)" />
+		<node id="3" name="Naive Bayes" qualified_name="Orange.widgets.model.ownaivebayes.OWNaiveBayes" project_name="Orange3" version="" title="Naive Bayes" position="(600, 450)" />
+		<node id="4" name="kNN" qualified_name="Orange.widgets.model.owknn.OWKNNLearner" project_name="Orange3" version="" title="kNN" position="(600, 750)" />
+		<node id="5" name="Test and Score" qualified_name="Orange.widgets.evaluate.owtestandscore.OWTestAndScore" project_name="Orange3" version="" title="Test and Score" position="(900, 300)" />
+		<node id="6" name="Predictions" qualified_name="Orange.widgets.evaluate.owpredictions.OWPredictions" project_name="Orange3" version="" title="Predictions" position="(900, 900)" />
+		<node id="7" name="Import Images" qualified_name="orangecontrib.imageanalytics.widgets.owimageimport.OWImportImages" project_name="Orange3-ImageAnalytics" version="" title="Import Images (1)" position="(300, 900)" />
+		<node id="8" name="Image Embedding" qualified_name="orangecontrib.imageanalytics.widgets.owimageembedding.OWImageEmbedding" project_name="Orange3-ImageAnalytics" version="" title="Image Embedding (1)" position="(450, 900)" />
+		<node id="9" name="Confusion Matrix" qualified_name="Orange.widgets.evaluate.owconfusionmatrix.OWConfusionMatrix" project_name="Orange3" version="" title="Confusion Matrix" position="(900, 450)" />
 	</nodes>
 	<links>
-		<link enabled="true" id="0" sink_channel="Data" sink_node_id="1" source_channel="Data" source_node_id="0" />
-		<link enabled="true" id="1" sink_channel="Images" sink_node_id="3" source_channel="Data" source_node_id="0" />
-		<link enabled="true" id="2" sink_channel="Learner" sink_node_id="2" source_channel="Learner" source_node_id="4" />
-		<link enabled="true" id="3" sink_channel="Data" sink_node_id="4" source_channel="Embeddings" source_node_id="3" />
+		<link id="0" source_node_id="0" sink_node_id="1" source_channel="Data" sink_channel="Images" enabled="true" />
+		<link id="1" source_node_id="1" sink_node_id="3" source_channel="Embeddings" sink_channel="Data" enabled="true" />
+		<link id="2" source_node_id="1" sink_node_id="2" source_channel="Embeddings" sink_channel="Data" enabled="true" />
+		<link id="3" source_node_id="1" sink_node_id="4" source_channel="Embeddings" sink_channel="Data" enabled="true" />
+		<link id="4" source_node_id="7" sink_node_id="8" source_channel="Data" sink_channel="Images" enabled="true" />
+		<link id="5" source_node_id="3" sink_node_id="5" source_channel="Learner" sink_channel="Learner" enabled="true" />
+		<link id="6" source_node_id="2" sink_node_id="5" source_channel="Learner" sink_channel="Learner" enabled="true" />
+		<link id="7" source_node_id="4" sink_node_id="5" source_channel="Learner" sink_channel="Learner" enabled="true" />
+		<link id="8" source_node_id="3" sink_node_id="6" source_channel="Model" sink_channel="Predictors" enabled="true" />
+		<link id="9" source_node_id="2" sink_node_id="6" source_channel="Model" sink_channel="Predictors" enabled="true" />
+		<link id="10" source_node_id="4" sink_node_id="6" source_channel="Model" sink_channel="Predictors" enabled="true" />
+		<link id="11" source_node_id="1" sink_node_id="5" source_channel="Embeddings" sink_channel="Data" enabled="true" />
+		<link id="12" source_node_id="5" sink_node_id="9" source_channel="Evaluation Results" sink_channel="Evaluation Results" enabled="true" />
+		<link id="13" source_node_id="8" sink_node_id="6" source_channel="Embeddings" sink_channel="Data" enabled="true" />
 	</links>
-	<annotations />
+	<annotations>
+		<text id="0" type="text/plain" rect="(198.44444444444446, 578.2222222222222, 211.0, 35.0)" font-family="MS Shell Dlg 2" font-size="16">OpenCV Image Processing</text>
+		<arrow id="1" start="(307.77777777777777, 567.7777777777778)" end="(305.55555555555554, 362.22222222222223)" fill="#C1272D" />
+		<arrow id="2" start="(308.8888888888889, 622.2222222222223)" end="(308.8888888888889, 847.7777777777778)" fill="#C1272D" />
+	</annotations>
 	<thumbnail />
 	<node_properties>
-		<properties format="pickle" node_id="0">gASVkAEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjAxyZWNlbnRfcGF0aHOUXZSMHm9y
-YW5nZXdpZGdldC51dGlscy5maWxlZGlhbG9nc5SMClJlY2VudFBhdGiUk5QpgZR9lCiMB2Fic3Bh
-dGiUjHpDOi9Vc2Vycy9NRS9PbmVEcml2ZS9Eb2N1bWVudHMvU2Nob29sL1BTVS9GYWxsMjAyMC9F
-Q0U1NzgvQXNzaWdubWVudHMvQXNzaWdubWVudDMvZ2VzdHVyZS1yZWNvZ25pdGlvbi1tYXN0ZXIv
-VHJhaW5HZXN0dXJlc5SMBnByZWZpeJROjAdyZWxwYXRolE6MBXRpdGxllIwAlIwFc2hlZXSUaA6M
-C2ZpbGVfZm9ybWF0lE51YmGME3NhdmVkV2lkZ2V0R2VvbWV0cnmUQ0IB2dDLAAMAAAAAAbIAAAE0
-AAAC7AAAAdUAAAGzAAABUwAAAusAAAHUAAAAAAAAAAAHgAAAAbMAAAFTAAAC6wAAAdSUjAtfX3Zl
-cnNpb25fX5RLAXUu
+		<properties node_id="0" format="pickle">gASVbQIAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjAxyZWNlbnRfcGF0aHOUXZQojB5v
+cmFuZ2V3aWRnZXQudXRpbHMuZmlsZWRpYWxvZ3OUjApSZWNlbnRQYXRolJOUKYGUfZQojAdhYnNw
+YXRolIx1QzovVXNlcnMvTUUvT25lRHJpdmUvRG9jdW1lbnRzL1NjaG9vbC9QU1UvRmFsbDIwMjAv
+RUNFNTc4L0Fzc2lnbm1lbnRzL0Fzc2lnbm1lbnQzL2dlc3R1cmUtcmVjb2duaXRpb24tbWFzdGVy
+L2dlc3R1cmVzlIwGcHJlZml4lIwHYmFzZWRpcpSMB3JlbHBhdGiUjCNnZXN0dXJlLXJlY29nbml0
+aW9uLW1hc3Rlci9nZXN0dXJlc5SMBXRpdGxllIwAlIwFc2hlZXSUaBCMC2ZpbGVfZm9ybWF0lE51
+YmgGKYGUfZQoaAmMcUM6L1VzZXJzL01FL09uZURyaXZlL0RvY3VtZW50cy9TY2hvb2wvUFNVL0Zh
+bGwyMDIwL0VDRTU3OC9Bc3NpZ25tZW50cy9Bc3NpZ25tZW50My9nZXN0dXJlLXJlY29nbml0aW9u
+LW1hc3Rlci90ZXN0lGgLaAxoDYwfZ2VzdHVyZS1yZWNvZ25pdGlvbi1tYXN0ZXIvdGVzdJRoD2gQ
+aBFoEGgSTnViZYwTc2F2ZWRXaWRnZXRHZW9tZXRyeZRDQgHZ0MsAAwAAAAADIwAAAa0AAARdAAAC
+TgAAAyQAAAHMAAAEXAAAAk0AAAAAAAAAAAeAAAADJAAAAcwAAARcAAACTZSMC19fdmVyc2lvbl9f
+lEsBdS4=
 </properties>
-		<properties format="literal" node_id="1">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02/\x00\x00\x00\xf4\x00\x00\x06\xa1\x00\x00\x03\x07\x00\x00\x020\x00\x00\x01\x13\x00\x00\x06\xa0\x00\x00\x03\x06\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x020\x00\x00\x01\x13\x00\x00\x06\xa0\x00\x00\x03\x06', 'select_rows': True, 'selected_cols': [0, 1, 2, 3, 4, 5], 'selected_rows': [2], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 1}</properties>
-		<properties format="literal" node_id="2">{'controlAreaVisible': True, 'currentScriptIndex': 1, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x03\xc0\x00\x00\x00\x00\x00\x00\x07\x7f\x00\x00\x04\x19\x00\x00\x03\xc1\x00\x00\x00\x1f\x00\x00\x07~\x00\x00\x04\x18\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03\xc1\x00\x00\x00\x1f\x00\x00\x07~\x00\x00\x04\x18', 'scriptLibrary': [{'name': 'Hello world', 'script': '#------------------------------------------------------------\n# SEGMENT, RECOGNIZE and COUNT fingers from a video sequence\n#------------------------------------------------------------\n\n# organize imports\nimport cv2\nimport imutils\nimport numpy as np\nfrom sklearn.metrics import pairwise\n\n\n# global variables\nbg = None\n\n#--------------------------------------------------\n# To find the running average over the background\n#--------------------------------------------------\ndef run_avg(image, accumWeight):\n    global bg\n    # initialize the background\n    if bg is None:\n        bg = image.copy().astype("float")\n        return\n\n    # compute weighted average, accumulate it and update the background\n    cv2.accumulateWeighted(image, bg, accumWeight)\n\n#---------------------------------------------\n# To segment the region of hand in the image\n#---------------------------------------------\ndef segment(image, threshold=24):\n    global bg\n    # find the absolute difference between background and current frame\n    diff = cv2.absdiff(bg.astype("uint8"), image)\n\n    # threshold the diff image so that we get the foreground\n    thresholded = cv2.threshold(diff, threshold, 128, cv2.THRESH_BINARY)[1]\n\n    # get the contours in the thresholded image\n    (cnts, _) = cv2.findContours(thresholded.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)\n\n    # return None, if no contours detected\n    if len(cnts) == 0:\n        return\n    else:\n        # based on contour area, get the maximum contour which is the hand\n        segmented = max(cnts, key=cv2.contourArea)\n        return (thresholded, segmented)\n\n#--------------------------------------------------------------\n# To count the number of fingers in the segmented hand region\n#--------------------------------------------------------------\ndef count(thresholded, segmented):\n    # find the convex hull of the segmented hand region\n    chull = cv2.convexHull(segmented)\n\n    # find the most extreme points in the convex hull\n    extreme_top    = tuple(chull[chull[:, :, 1].argmin()][0])\n    extreme_bottom = tuple(chull[chull[:, :, 1].argmax()][0])\n    extreme_left   = tuple(chull[chull[:, :, 0].argmin()][0])\n    extreme_right  = tuple(chull[chull[:, :, 0].argmax()][0])\n\n    # find the center of the palm\n    cX = int((extreme_left[0] + extreme_right[0]) / 2)\n    cY = int((extreme_top[1] + extreme_bottom[1]) / 2)\n\n    # find the maximum euclidean distance between the center of the palm\n    # and the most extreme points of the convex hull\n    distance = pairwise.euclidean_distances([(cX, cY)], Y=[extreme_left, extreme_right, extreme_top, extreme_bottom])[0]\n    maximum_distance = distance[distance.argmax()]\n\n    # calculate the radius of the circle with 80% of the max euclidean distance obtained\n    radius = int(0.8 * maximum_distance)\n\n    # find the circumference of the circle\n    circumference = (2 * np.pi * radius)\n\n    # take out the circular region of interest which has \n    # the palm and the fingers\n    circular_roi = np.zeros(thresholded.shape[:2], dtype="uint8")\n\t\n    # draw the circular ROI\n    cv2.circle(circular_roi, (cX, cY), radius, 255, 1)\n\n    # take bit-wise AND between thresholded hand using the circular ROI as the mask\n    # which gives the cuts obtained using mask on the thresholded hand image\n    circular_roi = cv2.bitwise_and(thresholded, thresholded, mask=circular_roi)\n\n    # compute the contours in the circular ROI\n    (cnts, _) = cv2.findContours(circular_roi.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)\n\n    # initalize the finger count\n    count = 0\n\n    # loop through the contours found\n    for c in cnts:\n        # compute the bounding box of the contour\n        (x, y, w, h) = cv2.boundingRect(c)\n\n        # increment the count of fingers only if -\n        # 1. The contour region is not the wrist (bottom area)\n        # 2. The number of points along the contour does not exceed\n        #     25% of the circumference of the circular ROI\n        if ((cY + (cY * 0.25)) &gt; (y + h)) and ((circumference * 0.25) &gt; c.shape[0]):\n            count += 1\n\n    return count\n\n#-----------------\n# MAIN FUNCTION\n#-----------------\nif __name__ == "__main__":\n\n    # initialize accumulated weight\n    accumWeight = 0.5\n\n    # get the reference to the webcam\n    camera = cv2.VideoCapture(0)\n\n    # region of interest (ROI) coordinates\n    top, right, bottom, left = 10, 350, 225, 590\n\n    # initialize num of frames\n    num_frames = 0\n\n    # calibration indicator\n    calibrated = False\n\n    # In Data Table\n    \n\n    # keep looping, until interrupted\n    while(True):\n        # get the current frame\n        (grabbed, frame) = camera.read()\n\n        # resize the frame\n        frame = imutils.resize(frame, width=700)\n\n        # flip the frame so that it is not the mirror view\n        frame = cv2.flip(frame, 1)\n\n        # clone the frame\n        clone = frame.copy()\n\n        # get the height and width of the frame\n        (height, width) = frame.shape[:2]\n\n        # get the ROI\n        roi = frame[top:bottom, right:left]\n\n        # convert the roi to grayscale and blur it\n        gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)\n        gray = cv2.GaussianBlur(gray, (7, 7), 0)\n\n        # to get the background, keep looking till a threshold is reached\n        # so that our weighted average model gets calibrated\n        if num_frames &lt; 30:\n            run_avg(gray, accumWeight)\n            if num_frames == 1:\n                print("[STATUS] please wait! calibrating...")\n            elif num_frames == 29:\n                print("[STATUS] calibration successfull...")\n        else:\n            # segment the hand region\n            hand = segment(gray)\n\n            # check whether hand region is segmented\n            if hand is not None:\n                # if yes, unpack the thresholded image and\n                # segmented region\n                (thresholded, segmented) = hand\n\n                # draw the segmented region and display the frame\n                cv2.drawContours(clone, [segmented + (right, top)], -1, (0, 0, 255))\n\n                # count the number of fingers\n        ## #       fingers = count(thresholded, segmented)\n\n                cv2.putText(clone, str(classifier), (70, 45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)\n                \n                # show the thresholded image\n                cv2.imshow("Thesholded", thresholded)\n\n        # draw the segmented hand\n        cv2.rectangle(clone, (left, top), (right, bottom), (0,255,0), 2)\n\n        # increment the number of frames\n        num_frames += 1\n\n        # display the frame with segmented hand\n        cv2.imshow("Video Feed", clone)\n\n        # observe the keypress by the user~\n        keypress = cv2.waitKey(1) &amp; 0xFF\n\n        # if the user pressed "q", then stop looping\n        if keypress == ord("q"):\n            break\n\n    # free up memory\n    camera.release()\n    cv2.destroyAllWindows()', 'filename': None}, {'name': 'New script', 'script': '#------------------------------------------------------------\n# SEGMENT, RECOGNIZE and COUNT fingers from a video sequence\n#------------------------------------------------------------\n\n# organize imports\nimport cv2\nimport imutils\nimport numpy as np\nfrom sklearn.metrics import pairwise\n\n\n# global variables\nbg = None\n\n#--------------------------------------------------\n# To find the running average over the background\n#--------------------------------------------------\ndef run_avg(image, accumWeight):\n    global bg\n    # initialize the background\n    if bg is None:\n        bg = image.copy().astype("float")\n        return\n\n    # compute weighted average, accumulate it and update the background\n    cv2.accumulateWeighted(image, bg, accumWeight)\n\n#---------------------------------------------\n# To segment the region of hand in the image\n#---------------------------------------------\ndef segment(image, threshold=24):\n    global bg\n    # find the absolute difference between background and current frame\n    diff = cv2.absdiff(bg.astype("uint8"), image)\n\n    # threshold the diff image so that we get the foreground\n    thresholded = cv2.threshold(diff, threshold, 128, cv2.THRESH_BINARY)[1]\n\n    # get the contours in the thresholded image\n    (cnts, _) = cv2.findContours(thresholded.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)\n\n    # return None, if no contours detected\n    if len(cnts) == 0:\n        return\n    else:\n        # based on contour area, get the maximum contour which is the hand\n        segmented = max(cnts, key=cv2.contourArea)\n        return (thresholded, segmented)\n\n#--------------------------------------------------------------\n# To count the number of fingers in the segmented hand region\n#--------------------------------------------------------------\ndef count(thresholded, segmented):\n    # find the convex hull of the segmented hand region\n    chull = cv2.convexHull(segmented)\n\n    # find the most extreme points in the convex hull\n    extreme_top    = tuple(chull[chull[:, :, 1].argmin()][0])\n    extreme_bottom = tuple(chull[chull[:, :, 1].argmax()][0])\n    extreme_left   = tuple(chull[chull[:, :, 0].argmin()][0])\n    extreme_right  = tuple(chull[chull[:, :, 0].argmax()][0])\n\n    # find the center of the palm\n    cX = int((extreme_left[0] + extreme_right[0]) / 2)\n    cY = int((extreme_top[1] + extreme_bottom[1]) / 2)\n\n    # find the maximum euclidean distance between the center of the palm\n    # and the most extreme points of the convex hull\n    distance = pairwise.euclidean_distances([(cX, cY)], Y=[extreme_left, extreme_right, extreme_top, extreme_bottom])[0]\n    maximum_distance = distance[distance.argmax()]\n\n    # calculate the radius of the circle with 80% of the max euclidean distance obtained\n    radius = int(0.8 * maximum_distance)\n\n    # find the circumference of the circle\n    circumference = (2 * np.pi * radius)\n\n    # take out the circular region of interest which has \n    # the palm and the fingers\n    circular_roi = np.zeros(thresholded.shape[:2], dtype="uint8")\n\t\n    # draw the circular ROI\n    cv2.circle(circular_roi, (cX, cY), radius, 255, 1)\n\n    # take bit-wise AND between thresholded hand using the circular ROI as the mask\n    # which gives the cuts obtained using mask on the thresholded hand image\n    circular_roi = cv2.bitwise_and(thresholded, thresholded, mask=circular_roi)\n\n    # compute the contours in the circular ROI\n    (cnts, _) = cv2.findContours(circular_roi.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)\n\n    # initalize the finger count\n    count = 0\n\n    # loop through the contours found\n    for c in cnts:\n        # compute the bounding box of the contour\n        (x, y, w, h) = cv2.boundingRect(c)\n\n        # increment the count of fingers only if -\n        # 1. The contour region is not the wrist (bottom area)\n        # 2. The number of points along the contour does not exceed\n        #     25% of the circumference of the circular ROI\n        if ((cY + (cY * 0.25)) &gt; (y + h)) and ((circumference * 0.25) &gt; c.shape[0]):\n            count += 1\n\n    return count\n\n#-----------------\n# MAIN FUNCTION\n#-----------------\nif __name__ == "__main__":\n\n    # initialize accumulated weight\n    accumWeight = 0.5\n\n    # get the reference to the webcam\n    camera = cv2.VideoCapture(0)\n\n    # region of interest (ROI) coordinates\n    top, right, bottom, left = 10, 350, 225, 590\n\n    # initialize num of frames\n    num_frames = 0\n\n    # calibration indicator\n    calibrated = False\n\n    # In Data Table\n    \n\n    # keep looping, until interrupted\n    while(True):\n        # get the current frame\n        (grabbed, frame) = camera.read()\n\n        # resize the frame\n        frame = imutils.resize(frame, width=700)\n\n        # flip the frame so that it is not the mirror view\n        frame = cv2.flip(frame, 1)\n\n        # clone the frame\n        clone = frame.copy()\n\n        # get the height and width of the frame\n        (height, width) = frame.shape[:2]\n\n        # get the ROI\n        roi = frame[top:bottom, right:left]\n\n        # convert the roi to grayscale and blur it\n        gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)\n        gray = cv2.GaussianBlur(gray, (7, 7), 0)\n\n        # to get the background, keep looking till a threshold is reached\n        # so that our weighted average model gets calibrated\n        if num_frames &lt; 30:\n            run_avg(gray, accumWeight)\n            if num_frames == 1:\n                print("[STATUS] please wait! calibrating...")\n            elif num_frames == 29:\n                print("[STATUS] calibration successfull...")\n        else:\n            # segment the hand region\n            hand = segment(gray)\n\n            # check whether hand region is segmented\n            if hand is not None:\n                # if yes, unpack the thresholded image and\n                # segmented region\n                (thresholded, segmented) = hand\n\n                # draw the segmented region and display the frame\n                cv2.drawContours(clone, [segmented + (right, top)], -1, (0, 0, 255))\n\n                # count the number of fingers\n        ## #       fingers = count(thresholded, segmented)\n\n                cv2.putText(clone, str(classifier), (70, 45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)\n                \n                # show the thresholded image\n                cv2.imshow("Thesholded", thresholded)\n\n        # draw the segmented hand\n        cv2.rectangle(clone, (left, top), (right, bottom), (0,255,0), 2)\n\n        # increment the number of frames\n        num_frames += 1\n\n        # display the frame with segmented hand\n        cv2.imshow("Video Feed", clone)\n\n        # observe the keypress by the user~\n        keypress = cv2.waitKey(1) &amp; 0xFF\n\n        # if the user pressed "q", then stop looping\n        if keypress == ord("q"):\n            break\n\n    # free up memory\n    camera.release()\n    cv2.destroyAllWindows()', 'filename': None}], 'scriptText': '#------------------------------------------------------------\n# SEGMENT, RECOGNIZE and COUNT fingers from a video sequence\n#------------------------------------------------------------\n\n# organize imports\nimport cv2\nimport imutils\nimport numpy as np\nfrom sklearn.metrics import pairwise\n\n\n# global variables\nbg = None\n\n#--------------------------------------------------\n# To find the running average over the background\n#--------------------------------------------------\ndef run_avg(image, accumWeight):\n    global bg\n    # initialize the background\n    if bg is None:\n        bg = image.copy().astype("float")\n        return\n\n    # compute weighted average, accumulate it and update the background\n    cv2.accumulateWeighted(image, bg, accumWeight)\n\n#---------------------------------------------\n# To segment the region of hand in the image\n#---------------------------------------------\ndef segment(image, threshold=24):\n    global bg\n    # find the absolute difference between background and current frame\n    diff = cv2.absdiff(bg.astype("uint8"), image)\n\n    # threshold the diff image so that we get the foreground\n    thresholded = cv2.threshold(diff, threshold, 128, cv2.THRESH_BINARY)[1]\n\n    # get the contours in the thresholded image\n    (cnts, _) = cv2.findContours(thresholded.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)\n\n    # return None, if no contours detected\n    if len(cnts) == 0:\n        return\n    else:\n        # based on contour area, get the maximum contour which is the hand\n        segmented = max(cnts, key=cv2.contourArea)\n        return (thresholded, segmented)\n\n#--------------------------------------------------------------\n# To count the number of fingers in the segmented hand region\n#--------------------------------------------------------------\ndef count(thresholded, segmented):\n    # find the convex hull of the segmented hand region\n    chull = cv2.convexHull(segmented)\n\n    # find the most extreme points in the convex hull\n    extreme_top    = tuple(chull[chull[:, :, 1].argmin()][0])\n    extreme_bottom = tuple(chull[chull[:, :, 1].argmax()][0])\n    extreme_left   = tuple(chull[chull[:, :, 0].argmin()][0])\n    extreme_right  = tuple(chull[chull[:, :, 0].argmax()][0])\n\n    # find the center of the palm\n    cX = int((extreme_left[0] + extreme_right[0]) / 2)\n    cY = int((extreme_top[1] + extreme_bottom[1]) / 2)\n\n    # find the maximum euclidean distance between the center of the palm\n    # and the most extreme points of the convex hull\n    distance = pairwise.euclidean_distances([(cX, cY)], Y=[extreme_left, extreme_right, extreme_top, extreme_bottom])[0]\n    maximum_distance = distance[distance.argmax()]\n\n    # calculate the radius of the circle with 80% of the max euclidean distance obtained\n    radius = int(0.8 * maximum_distance)\n\n    # find the circumference of the circle\n    circumference = (2 * np.pi * radius)\n\n    # take out the circular region of interest which has \n    # the palm and the fingers\n    circular_roi = np.zeros(thresholded.shape[:2], dtype="uint8")\n\t\n    # draw the circular ROI\n    cv2.circle(circular_roi, (cX, cY), radius, 255, 1)\n\n    # take bit-wise AND between thresholded hand using the circular ROI as the mask\n    # which gives the cuts obtained using mask on the thresholded hand image\n    circular_roi = cv2.bitwise_and(thresholded, thresholded, mask=circular_roi)\n\n    # compute the contours in the circular ROI\n    (cnts, _) = cv2.findContours(circular_roi.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)\n\n    # initalize the finger count\n    count = 0\n\n    # loop through the contours found\n    for c in cnts:\n        # compute the bounding box of the contour\n        (x, y, w, h) = cv2.boundingRect(c)\n\n        # increment the count of fingers only if -\n        # 1. The contour region is not the wrist (bottom area)\n        # 2. The number of points along the contour does not exceed\n        #     25% of the circumference of the circular ROI\n        if ((cY + (cY * 0.25)) &gt; (y + h)) and ((circumference * 0.25) &gt; c.shape[0]):\n            count += 1\n\n    return count\n\n#-----------------\n# MAIN FUNCTION\n#-----------------\nif __name__ == "__main__":\n\n    # initialize accumulated weight\n    accumWeight = 0.5\n\n    # get the reference to the webcam\n    camera = cv2.VideoCapture(0)\n\n    # region of interest (ROI) coordinates\n    top, right, bottom, left = 10, 350, 225, 590\n\n    # initialize num of frames\n    num_frames = 0\n\n    # calibration indicator\n    calibrated = False\n\n    # In Data Table\n    \n\n    # keep looping, until interrupted\n    while(True):\n        # get the current frame\n        (grabbed, frame) = camera.read()\n\n        # resize the frame\n        frame = imutils.resize(frame, width=700)\n\n        # flip the frame so that it is not the mirror view\n        frame = cv2.flip(frame, 1)\n\n        # clone the frame\n        clone = frame.copy()\n\n        # get the height and width of the frame\n        (height, width) = frame.shape[:2]\n\n        # get the ROI\n        roi = frame[top:bottom, right:left]\n\n        # convert the roi to grayscale and blur it\n        gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)\n        gray = cv2.GaussianBlur(gray, (7, 7), 0)\n\n        # to get the background, keep looking till a threshold is reached\n        # so that our weighted average model gets calibrated\n        if num_frames &lt; 30:\n            run_avg(gray, accumWeight)\n            if num_frames == 1:\n                print("[STATUS] please wait! calibrating...")\n            elif num_frames == 29:\n                print("[STATUS] calibration successfull...")\n        else:\n            # segment the hand region\n            hand = segment(gray)\n\n            # check whether hand region is segmented\n            if hand is not None:\n                # if yes, unpack the thresholded image and\n                # segmented region\n                (thresholded, segmented) = hand\n\n                # draw the segmented region and display the frame\n                cv2.drawContours(clone, [segmented + (right, top)], -1, (0, 0, 255))\n\n                # count the number of fingers\n        ## #       fingers = count(thresholded, segmented)\n\n                cv2.putText(clone, str(classifier), (70, 45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)\n                \n                # show the thresholded image\n                cv2.imshow("Thesholded", thresholded)\n\n        # draw the segmented hand\n        cv2.rectangle(clone, (left, top), (right, bottom), (0,255,0), 2)\n\n        # increment the number of frames\n        num_frames += 1\n\n        # display the frame with segmented hand\n        cv2.imshow("Video Feed", clone)\n\n        # observe the keypress by the user~\n        keypress = cv2.waitKey(1) &amp; 0xFF\n\n        # if the user pressed "q", then stop looping\n        if keypress == ord("q"):\n            break\n\n    # free up memory\n    camera.release()\n    cv2.destroyAllWindows()', 'splitterState': b'\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x02\xe3\x00\x00\x00\xe4\x01\xff\xff\xff\xff\x01\x00\x00\x00\x02\x00', '__version__': 2}</properties>
-		<properties format="literal" node_id="3">{'_auto_apply': True, 'cb_embedder_current_id': 0, 'cb_image_attr_current_id': 0, 'controlAreaVisible': True, 'savedWidgetGeometry': None, '__version__': 1}</properties>
-		<properties format="literal" node_id="4">{'C_index': 61, 'auto_apply': True, 'controlAreaVisible': True, 'learner_name': '', 'penalty_type': 1, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x03V\x00\x00\x01t\x00\x00\x04*\x00\x00\x02\x87\x00\x00\x03W\x00\x00\x01\x93\x00\x00\x04)\x00\x00\x02\x86\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03W\x00\x00\x01\x93\x00\x00\x04)\x00\x00\x02\x86', '__version__': 1}</properties>
-		<properties format="literal" node_id="5">{'append_predictions': True, 'append_probabilities': False, 'autocommit': True, 'controlAreaVisible': True, 'savedWidgetGeometry': None, 'selected_learner': [0], 'selected_quantity': 0, '__version__': 1, 'context_settings': []}</properties>
-		<properties format="pickle" node_id="6">gASVCgEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5
-lENCAdnQywADAAAAAAJoAAABHQAABRcAAALeAAACaQAAATwAAAUWAAAC3QAAAAAAAAAAB4AAAAJp
-AAABPAAABRYAAALdlIwJc2VsZWN0aW9ulF2UjAtzY29yZV90YWJsZZR9lIwMc2hvd25fc2NvcmVz
-lI+UKIwDQVVDlIwDTVNFlIwCQ0GUjAlQcmVjaXNpb26UjAZSZWNhbGyUjAJSMpSMBFJNU0WUjAJG
-MZSMA01BRZSQc4wLX192ZXJzaW9uX1+USwGMEGNvbnRleHRfc2V0dGluZ3OUXZR1Lg==
+		<properties node_id="1" format="literal">{'_auto_apply': True, 'cb_embedder_current_id': 1, 'cb_image_attr_current_id': 0, 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x039\x00\x00\x01\x88\x00\x00\x04:\x00\x00\x02\x90\x00\x00\x03:\x00\x00\x01\xa7\x00\x00\x049\x00\x00\x02\x8f\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03:\x00\x00\x01\xa7\x00\x00\x049\x00\x00\x02\x8f', '__version__': 1}</properties>
+		<properties node_id="2" format="literal">{'auto_apply': True, 'binary_trees': True, 'controlAreaVisible': True, 'learner_name': '', 'limit_depth': True, 'limit_majority': True, 'limit_min_internal': True, 'limit_min_leaf': True, 'max_depth': 100, 'min_internal': 5, 'min_leaf': 2, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x01G\x00\x00\x01\x8e\x00\x00\x02y\x00\x00\x02\xcc\x00\x00\x01G\x00\x00\x01\x8e\x00\x00\x02y\x00\x00\x02\xcc\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x01G\x00\x00\x01\x8e\x00\x00\x02y\x00\x00\x02\xcc', 'sufficient_majority': 95, '__version__': 1}</properties>
+		<properties node_id="3" format="literal">{'auto_apply': True, 'controlAreaVisible': True, 'learner_name': '', 'savedWidgetGeometry': None, '__version__': 1}</properties>
+		<properties node_id="4" format="literal">{'auto_apply': True, 'controlAreaVisible': True, 'learner_name': 'kNN', 'metric_index': 0, 'n_neighbors': 5, 'savedWidgetGeometry': None, 'weight_index': 0, '__version__': 1}</properties>
+		<properties node_id="5" format="pickle">gASVQC0AAAAAAAB9lCiMFGNvbXBhcmlzb25fY3JpdGVyaW9ulEsAjBJjb250cm9sQXJlYVZpc2li
+bGWUiIwNY3Zfc3RyYXRpZmllZJSIjAduX2ZvbGRzlEsCjAluX3JlcGVhdHOUSwOMCnJlc2FtcGxp
+bmeUSwCMBHJvcGWURz+5mZmZmZmajAtzYW1wbGVfc2l6ZZRLCYwTc2F2ZWRXaWRnZXRHZW9tZXRy
+eZRDQgHZ0MsAAwAAAAACOgAAASEAAAVFAAAC+AAAAjoAAAEhAAAFRQAAAvgAAAAAAAAAAAeAAAAC
+OgAAASEAAAVFAAAC+JSMEnNodWZmbGVfc3RyYXRpZmllZJSIjAh1c2Vfcm9wZZSJjAtzY29yZV90
+YWJsZZR9lIwMc2hvd25fc2NvcmVzlI+UKIwCUjKUjAZSZWNhbGyUjAJGMZSMAkNBlIwDTVNFlIwE
+Uk1TRZSMA0FVQ5SMCVByZWNpc2lvbpSMA01BRZSQc4wLX192ZXJzaW9uX1+USwOMEGNvbnRleHRf
+c2V0dGluZ3OUXZSMFW9yYW5nZXdpZGdldC5zZXR0aW5nc5SMB0NvbnRleHSUk5QpgZR9lCiMBnZh
+bHVlc5R9lCiMD2NsYXNzX3NlbGVjdGlvbpSMFihBdmVyYWdlIG92ZXIgY2xhc3NlcymUSv////+G
+lIwMZm9sZF9mZWF0dXJllE5K/v///4aUjBVmb2xkX2ZlYXR1cmVfc2VsZWN0ZWSUiUr+////hpRo
+DX2UaBpLA3WMCmF0dHJpYnV0ZXOUKIwCbjCUSwKGlIwCbjGUSwKGlIwCbjKUSwKGlIwCbjOUSwKG
+lIwCbjSUSwKGlIwCbjWUSwKGlIwCbjaUSwKGlIwCbjeUSwKGlIwCbjiUSwKGlIwCbjmUSwKGlIwD
+bjEwlEsChpSMA24xMZRLAoaUjANuMTKUSwKGlIwDbjEzlEsChpSMA24xNJRLAoaUjANuMTWUSwKG
+lIwDbjE2lEsChpSMA24xN5RLAoaUjANuMTiUSwKGlIwDbjE5lEsChpSMA24yMJRLAoaUjANuMjGU
+SwKGlIwDbjIylEsChpSMA24yM5RLAoaUjANuMjSUSwKGlIwDbjI1lEsChpSMA24yNpRLAoaUjANu
+MjeUSwKGlIwDbjI4lEsChpSMA24yOZRLAoaUjANuMzCUSwKGlIwDbjMxlEsChpSMA24zMpRLAoaU
+jANuMzOUSwKGlIwDbjM0lEsChpSMA24zNZRLAoaUjANuMzaUSwKGlIwDbjM3lEsChpSMA24zOJRL
+AoaUjANuMzmUSwKGlIwDbjQwlEsChpSMA240MZRLAoaUjANuNDKUSwKGlIwDbjQzlEsChpSMA240
+NJRLAoaUjANuNDWUSwKGlIwDbjQ2lEsChpSMA240N5RLAoaUjANuNDiUSwKGlIwDbjQ5lEsChpSM
+A241MJRLAoaUjANuNTGUSwKGlIwDbjUylEsChpSMA241M5RLAoaUjANuNTSUSwKGlIwDbjU1lEsC
+hpSMA241NpRLAoaUjANuNTeUSwKGlIwDbjU4lEsChpSMA241OZRLAoaUjANuNjCUSwKGlIwDbjYx
+lEsChpSMA242MpRLAoaUjANuNjOUSwKGlIwDbjY0lEsChpSMA242NZRLAoaUjANuNjaUSwKGlIwD
+bjY3lEsChpSMA242OJRLAoaUjANuNjmUSwKGlIwDbjcwlEsChpSMA243MZRLAoaUjANuNzKUSwKG
+lIwDbjczlEsChpSMA243NJRLAoaUjANuNzWUSwKGlIwDbjc2lEsChpSMA243N5RLAoaUjANuNziU
+SwKGlIwDbjc5lEsChpSMA244MJRLAoaUjANuODGUSwKGlIwDbjgylEsChpSMA244M5RLAoaUjANu
+ODSUSwKGlIwDbjg1lEsChpSMA244NpRLAoaUjANuODeUSwKGlIwDbjg4lEsChpSMA244OZRLAoaU
+jANuOTCUSwKGlIwDbjkxlEsChpSMA245MpRLAoaUjANuOTOUSwKGlIwDbjk0lEsChpSMA245NZRL
+AoaUjANuOTaUSwKGlIwDbjk3lEsChpSMA245OJRLAoaUjANuOTmUSwKGlIwEbjEwMJRLAoaUjARu
+MTAxlEsChpSMBG4xMDKUSwKGlIwEbjEwM5RLAoaUjARuMTA0lEsChpSMBG4xMDWUSwKGlIwEbjEw
+NpRLAoaUjARuMTA3lEsChpSMBG4xMDiUSwKGlIwEbjEwOZRLAoaUjARuMTEwlEsChpSMBG4xMTGU
+SwKGlIwEbjExMpRLAoaUjARuMTEzlEsChpSMBG4xMTSUSwKGlIwEbjExNZRLAoaUjARuMTE2lEsC
+hpSMBG4xMTeUSwKGlIwEbjExOJRLAoaUjARuMTE5lEsChpSMBG4xMjCUSwKGlIwEbjEyMZRLAoaU
+jARuMTIylEsChpSMBG4xMjOUSwKGlIwEbjEyNJRLAoaUjARuMTI1lEsChpSMBG4xMjaUSwKGlIwE
+bjEyN5RLAoaUjARuMTI4lEsChpSMBG4xMjmUSwKGlIwEbjEzMJRLAoaUjARuMTMxlEsChpSMBG4x
+MzKUSwKGlIwEbjEzM5RLAoaUjARuMTM0lEsChpSMBG4xMzWUSwKGlIwEbjEzNpRLAoaUjARuMTM3
+lEsChpSMBG4xMziUSwKGlIwEbjEzOZRLAoaUjARuMTQwlEsChpSMBG4xNDGUSwKGlIwEbjE0MpRL
+AoaUjARuMTQzlEsChpSMBG4xNDSUSwKGlIwEbjE0NZRLAoaUjARuMTQ2lEsChpSMBG4xNDeUSwKG
+lIwEbjE0OJRLAoaUjARuMTQ5lEsChpSMBG4xNTCUSwKGlIwEbjE1MZRLAoaUjARuMTUylEsChpSM
+BG4xNTOUSwKGlIwEbjE1NJRLAoaUjARuMTU1lEsChpSMBG4xNTaUSwKGlIwEbjE1N5RLAoaUjARu
+MTU4lEsChpSMBG4xNTmUSwKGlIwEbjE2MJRLAoaUjARuMTYxlEsChpSMBG4xNjKUSwKGlIwEbjE2
+M5RLAoaUjARuMTY0lEsChpSMBG4xNjWUSwKGlIwEbjE2NpRLAoaUjARuMTY3lEsChpSMBG4xNjiU
+SwKGlIwEbjE2OZRLAoaUjARuMTcwlEsChpSMBG4xNzGUSwKGlIwEbjE3MpRLAoaUjARuMTczlEsC
+hpSMBG4xNzSUSwKGlIwEbjE3NZRLAoaUjARuMTc2lEsChpSMBG4xNzeUSwKGlIwEbjE3OJRLAoaU
+jARuMTc5lEsChpSMBG4xODCUSwKGlIwEbjE4MZRLAoaUjARuMTgylEsChpSMBG4xODOUSwKGlIwE
+bjE4NJRLAoaUjARuMTg1lEsChpSMBG4xODaUSwKGlIwEbjE4N5RLAoaUjARuMTg4lEsChpSMBG4x
+ODmUSwKGlIwEbjE5MJRLAoaUjARuMTkxlEsChpSMBG4xOTKUSwKGlIwEbjE5M5RLAoaUjARuMTk0
+lEsChpSMBG4xOTWUSwKGlIwEbjE5NpRLAoaUjARuMTk3lEsChpSMBG4xOTiUSwKGlIwEbjE5OZRL
+AoaUjARuMjAwlEsChpSMBG4yMDGUSwKGlIwEbjIwMpRLAoaUjARuMjAzlEsChpSMBG4yMDSUSwKG
+lIwEbjIwNZRLAoaUjARuMjA2lEsChpSMBG4yMDeUSwKGlIwEbjIwOJRLAoaUjARuMjA5lEsChpSM
+BG4yMTCUSwKGlIwEbjIxMZRLAoaUjARuMjEylEsChpSMBG4yMTOUSwKGlIwEbjIxNJRLAoaUjARu
+MjE1lEsChpSMBG4yMTaUSwKGlIwEbjIxN5RLAoaUjARuMjE4lEsChpSMBG4yMTmUSwKGlIwEbjIy
+MJRLAoaUjARuMjIxlEsChpSMBG4yMjKUSwKGlIwEbjIyM5RLAoaUjARuMjI0lEsChpSMBG4yMjWU
+SwKGlIwEbjIyNpRLAoaUjARuMjI3lEsChpSMBG4yMjiUSwKGlIwEbjIyOZRLAoaUjARuMjMwlEsC
+hpSMBG4yMzGUSwKGlIwEbjIzMpRLAoaUjARuMjMzlEsChpSMBG4yMzSUSwKGlIwEbjIzNZRLAoaU
+jARuMjM2lEsChpSMBG4yMzeUSwKGlIwEbjIzOJRLAoaUjARuMjM5lEsChpSMBG4yNDCUSwKGlIwE
+bjI0MZRLAoaUjARuMjQylEsChpSMBG4yNDOUSwKGlIwEbjI0NJRLAoaUjARuMjQ1lEsChpSMBG4y
+NDaUSwKGlIwEbjI0N5RLAoaUjARuMjQ4lEsChpSMBG4yNDmUSwKGlIwEbjI1MJRLAoaUjARuMjUx
+lEsChpSMBG4yNTKUSwKGlIwEbjI1M5RLAoaUjARuMjU0lEsChpSMBG4yNTWUSwKGlIwEbjI1NpRL
+AoaUjARuMjU3lEsChpSMBG4yNTiUSwKGlIwEbjI1OZRLAoaUjARuMjYwlEsChpSMBG4yNjGUSwKG
+lIwEbjI2MpRLAoaUjARuMjYzlEsChpSMBG4yNjSUSwKGlIwEbjI2NZRLAoaUjARuMjY2lEsChpSM
+BG4yNjeUSwKGlIwEbjI2OJRLAoaUjARuMjY5lEsChpSMBG4yNzCUSwKGlIwEbjI3MZRLAoaUjARu
+MjcylEsChpSMBG4yNzOUSwKGlIwEbjI3NJRLAoaUjARuMjc1lEsChpSMBG4yNzaUSwKGlIwEbjI3
+N5RLAoaUjARuMjc4lEsChpSMBG4yNzmUSwKGlIwEbjI4MJRLAoaUjARuMjgxlEsChpSMBG4yODKU
+SwKGlIwEbjI4M5RLAoaUjARuMjg0lEsChpSMBG4yODWUSwKGlIwEbjI4NpRLAoaUjARuMjg3lEsC
+hpSMBG4yODiUSwKGlIwEbjI4OZRLAoaUjARuMjkwlEsChpSMBG4yOTGUSwKGlIwEbjI5MpRLAoaU
+jARuMjkzlEsChpSMBG4yOTSUSwKGlIwEbjI5NZRLAoaUjARuMjk2lEsChpSMBG4yOTeUSwKGlIwE
+bjI5OJRLAoaUjARuMjk5lEsChpSMBG4zMDCUSwKGlIwEbjMwMZRLAoaUjARuMzAylEsChpSMBG4z
+MDOUSwKGlIwEbjMwNJRLAoaUjARuMzA1lEsChpSMBG4zMDaUSwKGlIwEbjMwN5RLAoaUjARuMzA4
+lEsChpSMBG4zMDmUSwKGlIwEbjMxMJRLAoaUjARuMzExlEsChpSMBG4zMTKUSwKGlIwEbjMxM5RL
+AoaUjARuMzE0lEsChpSMBG4zMTWUSwKGlIwEbjMxNpRLAoaUjARuMzE3lEsChpSMBG4zMTiUSwKG
+lIwEbjMxOZRLAoaUjARuMzIwlEsChpSMBG4zMjGUSwKGlIwEbjMyMpRLAoaUjARuMzIzlEsChpSM
+BG4zMjSUSwKGlIwEbjMyNZRLAoaUjARuMzI2lEsChpSMBG4zMjeUSwKGlIwEbjMyOJRLAoaUjARu
+MzI5lEsChpSMBG4zMzCUSwKGlIwEbjMzMZRLAoaUjARuMzMylEsChpSMBG4zMzOUSwKGlIwEbjMz
+NJRLAoaUjARuMzM1lEsChpSMBG4zMzaUSwKGlIwEbjMzN5RLAoaUjARuMzM4lEsChpSMBG4zMzmU
+SwKGlIwEbjM0MJRLAoaUjARuMzQxlEsChpSMBG4zNDKUSwKGlIwEbjM0M5RLAoaUjARuMzQ0lEsC
+hpSMBG4zNDWUSwKGlIwEbjM0NpRLAoaUjARuMzQ3lEsChpSMBG4zNDiUSwKGlIwEbjM0OZRLAoaU
+jARuMzUwlEsChpSMBG4zNTGUSwKGlIwEbjM1MpRLAoaUjARuMzUzlEsChpSMBG4zNTSUSwKGlIwE
+bjM1NZRLAoaUjARuMzU2lEsChpSMBG4zNTeUSwKGlIwEbjM1OJRLAoaUjARuMzU5lEsChpSMBG4z
+NjCUSwKGlIwEbjM2MZRLAoaUjARuMzYylEsChpSMBG4zNjOUSwKGlIwEbjM2NJRLAoaUjARuMzY1
+lEsChpSMBG4zNjaUSwKGlIwEbjM2N5RLAoaUjARuMzY4lEsChpSMBG4zNjmUSwKGlIwEbjM3MJRL
+AoaUjARuMzcxlEsChpSMBG4zNzKUSwKGlIwEbjM3M5RLAoaUjARuMzc0lEsChpSMBG4zNzWUSwKG
+lIwEbjM3NpRLAoaUjARuMzc3lEsChpSMBG4zNziUSwKGlIwEbjM3OZRLAoaUjARuMzgwlEsChpSM
+BG4zODGUSwKGlIwEbjM4MpRLAoaUjARuMzgzlEsChpSMBG4zODSUSwKGlIwEbjM4NZRLAoaUjARu
+Mzg2lEsChpSMBG4zODeUSwKGlIwEbjM4OJRLAoaUjARuMzg5lEsChpSMBG4zOTCUSwKGlIwEbjM5
+MZRLAoaUjARuMzkylEsChpSMBG4zOTOUSwKGlIwEbjM5NJRLAoaUjARuMzk1lEsChpSMBG4zOTaU
+SwKGlIwEbjM5N5RLAoaUjARuMzk4lEsChpSMBG4zOTmUSwKGlIwEbjQwMJRLAoaUjARuNDAxlEsC
+hpSMBG40MDKUSwKGlIwEbjQwM5RLAoaUjARuNDA0lEsChpSMBG40MDWUSwKGlIwEbjQwNpRLAoaU
+jARuNDA3lEsChpSMBG40MDiUSwKGlIwEbjQwOZRLAoaUjARuNDEwlEsChpSMBG40MTGUSwKGlIwE
+bjQxMpRLAoaUjARuNDEzlEsChpSMBG40MTSUSwKGlIwEbjQxNZRLAoaUjARuNDE2lEsChpSMBG40
+MTeUSwKGlIwEbjQxOJRLAoaUjARuNDE5lEsChpSMBG40MjCUSwKGlIwEbjQyMZRLAoaUjARuNDIy
+lEsChpSMBG40MjOUSwKGlIwEbjQyNJRLAoaUjARuNDI1lEsChpSMBG40MjaUSwKGlIwEbjQyN5RL
+AoaUjARuNDI4lEsChpSMBG40MjmUSwKGlIwEbjQzMJRLAoaUjARuNDMxlEsChpSMBG40MzKUSwKG
+lIwEbjQzM5RLAoaUjARuNDM0lEsChpSMBG40MzWUSwKGlIwEbjQzNpRLAoaUjARuNDM3lEsChpSM
+BG40MziUSwKGlIwEbjQzOZRLAoaUjARuNDQwlEsChpSMBG40NDGUSwKGlIwEbjQ0MpRLAoaUjARu
+NDQzlEsChpSMBG40NDSUSwKGlIwEbjQ0NZRLAoaUjARuNDQ2lEsChpSMBG40NDeUSwKGlIwEbjQ0
+OJRLAoaUjARuNDQ5lEsChpSMBG40NTCUSwKGlIwEbjQ1MZRLAoaUjARuNDUylEsChpSMBG40NTOU
+SwKGlIwEbjQ1NJRLAoaUjARuNDU1lEsChpSMBG40NTaUSwKGlIwEbjQ1N5RLAoaUjARuNDU4lEsC
+hpSMBG40NTmUSwKGlIwEbjQ2MJRLAoaUjARuNDYxlEsChpSMBG40NjKUSwKGlIwEbjQ2M5RLAoaU
+jARuNDY0lEsChpSMBG40NjWUSwKGlIwEbjQ2NpRLAoaUjARuNDY3lEsChpSMBG40NjiUSwKGlIwE
+bjQ2OZRLAoaUjARuNDcwlEsChpSMBG40NzGUSwKGlIwEbjQ3MpRLAoaUjARuNDczlEsChpSMBG40
+NzSUSwKGlIwEbjQ3NZRLAoaUjARuNDc2lEsChpSMBG40NzeUSwKGlIwEbjQ3OJRLAoaUjARuNDc5
+lEsChpSMBG40ODCUSwKGlIwEbjQ4MZRLAoaUjARuNDgylEsChpSMBG40ODOUSwKGlIwEbjQ4NJRL
+AoaUjARuNDg1lEsChpSMBG40ODaUSwKGlIwEbjQ4N5RLAoaUjARuNDg4lEsChpSMBG40ODmUSwKG
+lIwEbjQ5MJRLAoaUjARuNDkxlEsChpSMBG40OTKUSwKGlIwEbjQ5M5RLAoaUjARuNDk0lEsChpSM
+BG40OTWUSwKGlIwEbjQ5NpRLAoaUjARuNDk3lEsChpSMBG40OTiUSwKGlIwEbjQ5OZRLAoaUjARu
+NTAwlEsChpSMBG41MDGUSwKGlIwEbjUwMpRLAoaUjARuNTAzlEsChpSMBG41MDSUSwKGlIwEbjUw
+NZRLAoaUjARuNTA2lEsChpSMBG41MDeUSwKGlIwEbjUwOJRLAoaUjARuNTA5lEsChpSMBG41MTCU
+SwKGlIwEbjUxMZRLAoaUjARuNTEylEsChpSMBG41MTOUSwKGlIwEbjUxNJRLAoaUjARuNTE1lEsC
+hpSMBG41MTaUSwKGlIwEbjUxN5RLAoaUjARuNTE4lEsChpSMBG41MTmUSwKGlIwEbjUyMJRLAoaU
+jARuNTIxlEsChpSMBG41MjKUSwKGlIwEbjUyM5RLAoaUjARuNTI0lEsChpSMBG41MjWUSwKGlIwE
+bjUyNpRLAoaUjARuNTI3lEsChpSMBG41MjiUSwKGlIwEbjUyOZRLAoaUjARuNTMwlEsChpSMBG41
+MzGUSwKGlIwEbjUzMpRLAoaUjARuNTMzlEsChpSMBG41MzSUSwKGlIwEbjUzNZRLAoaUjARuNTM2
+lEsChpSMBG41MzeUSwKGlIwEbjUzOJRLAoaUjARuNTM5lEsChpSMBG41NDCUSwKGlIwEbjU0MZRL
+AoaUjARuNTQylEsChpSMBG41NDOUSwKGlIwEbjU0NJRLAoaUjARuNTQ1lEsChpSMBG41NDaUSwKG
+lIwEbjU0N5RLAoaUjARuNTQ4lEsChpSMBG41NDmUSwKGlIwEbjU1MJRLAoaUjARuNTUxlEsChpSM
+BG41NTKUSwKGlIwEbjU1M5RLAoaUjARuNTU0lEsChpSMBG41NTWUSwKGlIwEbjU1NpRLAoaUjARu
+NTU3lEsChpSMBG41NTiUSwKGlIwEbjU1OZRLAoaUjARuNTYwlEsChpSMBG41NjGUSwKGlIwEbjU2
+MpRLAoaUjARuNTYzlEsChpSMBG41NjSUSwKGlIwEbjU2NZRLAoaUjARuNTY2lEsChpSMBG41NjeU
+SwKGlIwEbjU2OJRLAoaUjARuNTY5lEsChpSMBG41NzCUSwKGlIwEbjU3MZRLAoaUjARuNTcylEsC
+hpSMBG41NzOUSwKGlIwEbjU3NJRLAoaUjARuNTc1lEsChpSMBG41NzaUSwKGlIwEbjU3N5RLAoaU
+jARuNTc4lEsChpSMBG41NzmUSwKGlIwEbjU4MJRLAoaUjARuNTgxlEsChpSMBG41ODKUSwKGlIwE
+bjU4M5RLAoaUjARuNTg0lEsChpSMBG41ODWUSwKGlIwEbjU4NpRLAoaUjARuNTg3lEsChpSMBG41
+ODiUSwKGlIwEbjU4OZRLAoaUjARuNTkwlEsChpSMBG41OTGUSwKGlIwEbjU5MpRLAoaUjARuNTkz
+lEsChpSMBG41OTSUSwKGlIwEbjU5NZRLAoaUjARuNTk2lEsChpSMBG41OTeUSwKGlIwEbjU5OJRL
+AoaUjARuNTk5lEsChpSMBG42MDCUSwKGlIwEbjYwMZRLAoaUjARuNjAylEsChpSMBG42MDOUSwKG
+lIwEbjYwNJRLAoaUjARuNjA1lEsChpSMBG42MDaUSwKGlIwEbjYwN5RLAoaUjARuNjA4lEsChpSM
+BG42MDmUSwKGlIwEbjYxMJRLAoaUjARuNjExlEsChpSMBG42MTKUSwKGlIwEbjYxM5RLAoaUjARu
+NjE0lEsChpSMBG42MTWUSwKGlIwEbjYxNpRLAoaUjARuNjE3lEsChpSMBG42MTiUSwKGlIwEbjYx
+OZRLAoaUjARuNjIwlEsChpSMBG42MjGUSwKGlIwEbjYyMpRLAoaUjARuNjIzlEsChpSMBG42MjSU
+SwKGlIwEbjYyNZRLAoaUjARuNjI2lEsChpSMBG42MjeUSwKGlIwEbjYyOJRLAoaUjARuNjI5lEsC
+hpSMBG42MzCUSwKGlIwEbjYzMZRLAoaUjARuNjMylEsChpSMBG42MzOUSwKGlIwEbjYzNJRLAoaU
+jARuNjM1lEsChpSMBG42MzaUSwKGlIwEbjYzN5RLAoaUjARuNjM4lEsChpSMBG42MzmUSwKGlIwE
+bjY0MJRLAoaUjARuNjQxlEsChpSMBG42NDKUSwKGlIwEbjY0M5RLAoaUjARuNjQ0lEsChpSMBG42
+NDWUSwKGlIwEbjY0NpRLAoaUjARuNjQ3lEsChpSMBG42NDiUSwKGlIwEbjY0OZRLAoaUjARuNjUw
+lEsChpSMBG42NTGUSwKGlIwEbjY1MpRLAoaUjARuNjUzlEsChpSMBG42NTSUSwKGlIwEbjY1NZRL
+AoaUjARuNjU2lEsChpSMBG42NTeUSwKGlIwEbjY1OJRLAoaUjARuNjU5lEsChpSMBG42NjCUSwKG
+lIwEbjY2MZRLAoaUjARuNjYylEsChpSMBG42NjOUSwKGlIwEbjY2NJRLAoaUjARuNjY1lEsChpSM
+BG42NjaUSwKGlIwEbjY2N5RLAoaUjARuNjY4lEsChpSMBG42NjmUSwKGlIwEbjY3MJRLAoaUjARu
+NjcxlEsChpSMBG42NzKUSwKGlIwEbjY3M5RLAoaUjARuNjc0lEsChpSMBG42NzWUSwKGlIwEbjY3
+NpRLAoaUjARuNjc3lEsChpSMBG42NziUSwKGlIwEbjY3OZRLAoaUjARuNjgwlEsChpSMBG42ODGU
+SwKGlIwEbjY4MpRLAoaUjARuNjgzlEsChpSMBG42ODSUSwKGlIwEbjY4NZRLAoaUjARuNjg2lEsC
+hpSMBG42ODeUSwKGlIwEbjY4OJRLAoaUjARuNjg5lEsChpSMBG42OTCUSwKGlIwEbjY5MZRLAoaU
+jARuNjkylEsChpSMBG42OTOUSwKGlIwEbjY5NJRLAoaUjARuNjk1lEsChpSMBG42OTaUSwKGlIwE
+bjY5N5RLAoaUjARuNjk4lEsChpSMBG42OTmUSwKGlIwEbjcwMJRLAoaUjARuNzAxlEsChpSMBG43
+MDKUSwKGlIwEbjcwM5RLAoaUjARuNzA0lEsChpSMBG43MDWUSwKGlIwEbjcwNpRLAoaUjARuNzA3
+lEsChpSMBG43MDiUSwKGlIwEbjcwOZRLAoaUjARuNzEwlEsChpSMBG43MTGUSwKGlIwEbjcxMpRL
+AoaUjARuNzEzlEsChpSMBG43MTSUSwKGlIwEbjcxNZRLAoaUjARuNzE2lEsChpSMBG43MTeUSwKG
+lIwEbjcxOJRLAoaUjARuNzE5lEsChpSMBG43MjCUSwKGlIwEbjcyMZRLAoaUjARuNzIylEsChpSM
+BG43MjOUSwKGlIwEbjcyNJRLAoaUjARuNzI1lEsChpSMBG43MjaUSwKGlIwEbjcyN5RLAoaUjARu
+NzI4lEsChpSMBG43MjmUSwKGlIwEbjczMJRLAoaUjARuNzMxlEsChpSMBG43MzKUSwKGlIwEbjcz
+M5RLAoaUjARuNzM0lEsChpSMBG43MzWUSwKGlIwEbjczNpRLAoaUjARuNzM3lEsChpSMBG43MziU
+SwKGlIwEbjczOZRLAoaUjARuNzQwlEsChpSMBG43NDGUSwKGlIwEbjc0MpRLAoaUjARuNzQzlEsC
+hpSMBG43NDSUSwKGlIwEbjc0NZRLAoaUjARuNzQ2lEsChpSMBG43NDeUSwKGlIwEbjc0OJRLAoaU
+jARuNzQ5lEsChpSMBG43NTCUSwKGlIwEbjc1MZRLAoaUjARuNzUylEsChpSMBG43NTOUSwKGlIwE
+bjc1NJRLAoaUjARuNzU1lEsChpSMBG43NTaUSwKGlIwEbjc1N5RLAoaUjARuNzU4lEsChpSMBG43
+NTmUSwKGlIwEbjc2MJRLAoaUjARuNzYxlEsChpSMBG43NjKUSwKGlIwEbjc2M5RLAoaUjARuNzY0
+lEsChpSMBG43NjWUSwKGlIwEbjc2NpRLAoaUjARuNzY3lEsChpSMBG43NjiUSwKGlIwEbjc2OZRL
+AoaUjARuNzcwlEsChpSMBG43NzGUSwKGlIwEbjc3MpRLAoaUjARuNzczlEsChpSMBG43NzSUSwKG
+lIwEbjc3NZRLAoaUjARuNzc2lEsChpSMBG43NzeUSwKGlIwEbjc3OJRLAoaUjARuNzc5lEsChpSM
+BG43ODCUSwKGlIwEbjc4MZRLAoaUjARuNzgylEsChpSMBG43ODOUSwKGlIwEbjc4NJRLAoaUjARu
+Nzg1lEsChpSMBG43ODaUSwKGlIwEbjc4N5RLAoaUjARuNzg4lEsChpSMBG43ODmUSwKGlIwEbjc5
+MJRLAoaUjARuNzkxlEsChpSMBG43OTKUSwKGlIwEbjc5M5RLAoaUjARuNzk0lEsChpSMBG43OTWU
+SwKGlIwEbjc5NpRLAoaUjARuNzk3lEsChpSMBG43OTiUSwKGlIwEbjc5OZRLAoaUjARuODAwlEsC
+hpSMBG44MDGUSwKGlIwEbjgwMpRLAoaUjARuODAzlEsChpSMBG44MDSUSwKGlIwEbjgwNZRLAoaU
+jARuODA2lEsChpSMBG44MDeUSwKGlIwEbjgwOJRLAoaUjARuODA5lEsChpSMBG44MTCUSwKGlIwE
+bjgxMZRLAoaUjARuODEylEsChpSMBG44MTOUSwKGlIwEbjgxNJRLAoaUjARuODE1lEsChpSMBG44
+MTaUSwKGlIwEbjgxN5RLAoaUjARuODE4lEsChpSMBG44MTmUSwKGlIwEbjgyMJRLAoaUjARuODIx
+lEsChpSMBG44MjKUSwKGlIwEbjgyM5RLAoaUjARuODI0lEsChpSMBG44MjWUSwKGlIwEbjgyNpRL
+AoaUjARuODI3lEsChpSMBG44MjiUSwKGlIwEbjgyOZRLAoaUjARuODMwlEsChpSMBG44MzGUSwKG
+lIwEbjgzMpRLAoaUjARuODMzlEsChpSMBG44MzSUSwKGlIwEbjgzNZRLAoaUjARuODM2lEsChpSM
+BG44MzeUSwKGlIwEbjgzOJRLAoaUjARuODM5lEsChpSMBG44NDCUSwKGlIwEbjg0MZRLAoaUjARu
+ODQylEsChpSMBG44NDOUSwKGlIwEbjg0NJRLAoaUjARuODQ1lEsChpSMBG44NDaUSwKGlIwEbjg0
+N5RLAoaUjARuODQ4lEsChpSMBG44NDmUSwKGlIwEbjg1MJRLAoaUjARuODUxlEsChpSMBG44NTKU
+SwKGlIwEbjg1M5RLAoaUjARuODU0lEsChpSMBG44NTWUSwKGlIwEbjg1NpRLAoaUjARuODU3lEsC
+hpSMBG44NTiUSwKGlIwEbjg1OZRLAoaUjARuODYwlEsChpSMBG44NjGUSwKGlIwEbjg2MpRLAoaU
+jARuODYzlEsChpSMBG44NjSUSwKGlIwEbjg2NZRLAoaUjARuODY2lEsChpSMBG44NjeUSwKGlIwE
+bjg2OJRLAoaUjARuODY5lEsChpSMBG44NzCUSwKGlIwEbjg3MZRLAoaUjARuODcylEsChpSMBG44
+NzOUSwKGlIwEbjg3NJRLAoaUjARuODc1lEsChpSMBG44NzaUSwKGlIwEbjg3N5RLAoaUjARuODc4
+lEsChpSMBG44NzmUSwKGlIwEbjg4MJRLAoaUjARuODgxlEsChpSMBG44ODKUSwKGlIwEbjg4M5RL
+AoaUjARuODg0lEsChpSMBG44ODWUSwKGlIwEbjg4NpRLAoaUjARuODg3lEsChpSMBG44ODiUSwKG
+lIwEbjg4OZRLAoaUjARuODkwlEsChpSMBG44OTGUSwKGlIwEbjg5MpRLAoaUjARuODkzlEsChpSM
+BG44OTSUSwKGlIwEbjg5NZRLAoaUjARuODk2lEsChpSMBG44OTeUSwKGlIwEbjg5OJRLAoaUjARu
+ODk5lEsChpSMBG45MDCUSwKGlIwEbjkwMZRLAoaUjARuOTAylEsChpSMBG45MDOUSwKGlIwEbjkw
+NJRLAoaUjARuOTA1lEsChpSMBG45MDaUSwKGlIwEbjkwN5RLAoaUjARuOTA4lEsChpSMBG45MDmU
+SwKGlIwEbjkxMJRLAoaUjARuOTExlEsChpSMBG45MTKUSwKGlIwEbjkxM5RLAoaUjARuOTE0lEsC
+hpSMBG45MTWUSwKGlIwEbjkxNpRLAoaUjARuOTE3lEsChpSMBG45MTiUSwKGlIwEbjkxOZRLAoaU
+jARuOTIwlEsChpSMBG45MjGUSwKGlIwEbjkyMpRLAoaUjARuOTIzlEsChpSMBG45MjSUSwKGlIwE
+bjkyNZRLAoaUjARuOTI2lEsChpSMBG45MjeUSwKGlIwEbjkyOJRLAoaUjARuOTI5lEsChpSMBG45
+MzCUSwKGlIwEbjkzMZRLAoaUjARuOTMylEsChpSMBG45MzOUSwKGlIwEbjkzNJRLAoaUjARuOTM1
+lEsChpSMBG45MzaUSwKGlIwEbjkzN5RLAoaUjARuOTM4lEsChpSMBG45MzmUSwKGlIwEbjk0MJRL
+AoaUjARuOTQxlEsChpSMBG45NDKUSwKGlIwEbjk0M5RLAoaUjARuOTQ0lEsChpSMBG45NDWUSwKG
+lIwEbjk0NpRLAoaUjARuOTQ3lEsChpSMBG45NDiUSwKGlIwEbjk0OZRLAoaUjARuOTUwlEsChpSM
+BG45NTGUSwKGlIwEbjk1MpRLAoaUjARuOTUzlEsChpSMBG45NTSUSwKGlIwEbjk1NZRLAoaUjARu
+OTU2lEsChpSMBG45NTeUSwKGlIwEbjk1OJRLAoaUjARuOTU5lEsChpSMBG45NjCUSwKGlIwEbjk2
+MZRLAoaUjARuOTYylEsChpSMBG45NjOUSwKGlIwEbjk2NJRLAoaUjARuOTY1lEsChpSMBG45NjaU
+SwKGlIwEbjk2N5RLAoaUjARuOTY4lEsChpSMBG45NjmUSwKGlIwEbjk3MJRLAoaUjARuOTcxlEsC
+hpSMBG45NzKUSwKGlIwEbjk3M5RLAoaUjARuOTc0lEsChpSMBG45NzWUSwKGlIwEbjk3NpRLAoaU
+jARuOTc3lEsChpSMBG45NziUSwKGlIwEbjk3OZRLAoaUjARuOTgwlEsChpSMBG45ODGUSwKGlIwE
+bjk4MpRLAoaUjARuOTgzlEsChpSMBG45ODSUSwKGlIwEbjk4NZRLAoaUjARuOTg2lEsChpSMBG45
+ODeUSwKGlIwEbjk4OJRLAoaUjARuOTg5lEsChpSMBG45OTCUSwKGlIwEbjk5MZRLAoaUjARuOTky
+lEsChpSMBG45OTOUSwKGlIwEbjk5NJRLAoaUjARuOTk1lEsChpSMBG45OTaUSwKGlIwEbjk5N5RL
+AoaUjARuOTk4lEsChpSMBG45OTmUSwKGlHSUjAVtZXRhc5QojAppbWFnZSBuYW1llEsDhpSMBWlt
+YWdllEsDhpSMBHNpemWUSwKGlIwFd2lkdGiUSwKGlIwGaGVpZ2h0lEsChpR0lIwKY2xhc3NfdmFy
+c5SMCGNhdGVnb3J5lEsBhpSFlHViYXUu
+</properties>
+		<properties node_id="6" format="pickle">gASVCgEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5
+lENCAdnQywADAAAAAAJoAAABfwAABagAAALIAAACaQAAAZ4AAAWnAAACxwAAAAAAAAAAB4AAAAJp
+AAABngAABacAAALHlIwJc2VsZWN0aW9ulF2UjAtzY29yZV90YWJsZZR9lIwMc2hvd25fc2NvcmVz
+lI+UKIwCUjKUjAZSZWNhbGyUjAJGMZSMAkNBlIwDTVNFlIwEUk1TRZSMA0FVQ5SMCVByZWNpc2lv
+bpSMA01BRZSQc4wLX192ZXJzaW9uX1+USwGMEGNvbnRleHRfc2V0dGluZ3OUXZR1Lg==
+</properties>
+		<properties node_id="7" format="pickle">gASVbQIAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjAxyZWNlbnRfcGF0aHOUXZQojB5v
+cmFuZ2V3aWRnZXQudXRpbHMuZmlsZWRpYWxvZ3OUjApSZWNlbnRQYXRolJOUKYGUfZQojAdhYnNw
+YXRolIxxQzovVXNlcnMvTUUvT25lRHJpdmUvRG9jdW1lbnRzL1NjaG9vbC9QU1UvRmFsbDIwMjAv
+RUNFNTc4L0Fzc2lnbm1lbnRzL0Fzc2lnbm1lbnQzL2dlc3R1cmUtcmVjb2duaXRpb24tbWFzdGVy
+L3Rlc3SUjAZwcmVmaXiUjAdiYXNlZGlylIwHcmVscGF0aJSMH2dlc3R1cmUtcmVjb2duaXRpb24t
+bWFzdGVyL3Rlc3SUjAV0aXRsZZSMAJSMBXNoZWV0lGgQjAtmaWxlX2Zvcm1hdJROdWJoBimBlH2U
+KGgJjHVDOi9Vc2Vycy9NRS9PbmVEcml2ZS9Eb2N1bWVudHMvU2Nob29sL1BTVS9GYWxsMjAyMC9F
+Q0U1NzgvQXNzaWdubWVudHMvQXNzaWdubWVudDMvZ2VzdHVyZS1yZWNvZ25pdGlvbi1tYXN0ZXIv
+Z2VzdHVyZXOUaAtoDGgNjCNnZXN0dXJlLXJlY29nbml0aW9uLW1hc3Rlci9nZXN0dXJlc5RoD2gQ
+aBFoEGgSTnViZYwTc2F2ZWRXaWRnZXRHZW9tZXRyeZRDQgHZ0MsAAwAAAAADJAAAAcwAAARcAAAC
+TQAAAyQAAAHMAAAEXAAAAk0AAAAAAAAAAAeAAAADJAAAAcwAAARcAAACTZSMC19fdmVyc2lvbl9f
+lEsBdS4=
+</properties>
+		<properties node_id="8" format="literal">{'_auto_apply': True, 'cb_embedder_current_id': 1, 'cb_image_attr_current_id': 0, 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x039\x00\x00\x01\x88\x00\x00\x04:\x00\x00\x02\x8e\x00\x00\x03:\x00\x00\x01\xa7\x00\x00\x049\x00\x00\x02\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03:\x00\x00\x01\xa7\x00\x00\x049\x00\x00\x02\x8d', '__version__': 1}</properties>
+		<properties node_id="9" format="pickle">gASV4AEAAAAAAAB9lCiMEmFwcGVuZF9wcmVkaWN0aW9uc5SIjBRhcHBlbmRfcHJvYmFiaWxpdGll
+c5SJjAphdXRvY29tbWl0lIiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21l
+dHJ5lENCAdnQywADAAAAAAJJAAABYwAABq4AAAOwAAACSQAAAWMAAAauAAADsAAAAAAAAAAAB4AA
+AAJJAAABYwAABq4AAAOwlIwQc2VsZWN0ZWRfbGVhcm5lcpSMB2NvcHlyZWeUjA5fcmVjb25zdHJ1
+Y3RvcpSTlIwIYnVpbHRpbnOUjARsaXN0lJOUaA0ph5RSlEsAYYwRc2VsZWN0ZWRfcXVhbnRpdHmU
+SwCMC19fdmVyc2lvbl9flEsBjBBjb250ZXh0X3NldHRpbmdzlF2UjBVvcmFuZ2V3aWRnZXQuc2V0
+dGluZ3OUjAdDb250ZXh0lJOUKYGUfZQojAZ2YWx1ZXOUfZQojAlzZWxlY3Rpb26Uj5RoEUsBdYwH
+Y2xhc3Nlc5QojAEwlIwBMZSMATKUjAEzlIwBNJSMATWUjAJPS5SMCVRodW1iRG93bpSMCVRodW1i
+TGVmdJSMClRodW1iUmlnaHSUjAdUaHVtYlVwlHSUdWJhdS4=
 </properties>
 	</node_properties>
 	<session_state>
