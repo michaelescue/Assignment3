@@ -1,3 +1,5 @@
+# Modified from original author Gogul Ilango https://gogul.dev/software/hand-gesture-recognition-p1#references 
+
 #------------------------------------------------------------
 # SEGMENT, RECOGNIZE and COUNT fingers from a video sequence
 #------------------------------------------------------------
@@ -34,7 +36,6 @@ def foo():
     print ("Counter is %d" % foo.counter)
     return foo.counter
 foo.counter = 0
-
 #--------------------------------------------------
 # To find the running average over the background
 #--------------------------------------------------
@@ -317,14 +318,14 @@ if __name__ == "__main__":
                 threshtype = cv2.THRESH_BINARY
         elif(keypress == ord("u")):
             if(thresh < 256):
-                thresh += 1
+                thresh += 2
                 print(thresh)
             else:
                 thresh = thresh
                 print(thresh)
         elif(keypress == ord("d")):
             if(thresh >0):
-                thresh -= 1
+                thresh -= 2
                 print(thresh)
             else:
                 thresh = thresh
